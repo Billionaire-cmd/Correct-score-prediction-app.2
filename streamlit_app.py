@@ -5,7 +5,7 @@ from scipy.stats import poisson
 import streamlit as st
 
 # Streamlit Application Title
-st.title("⚽ Halftime Realistic Correct Score Outcome Predictor")
+st.title("💯💯💯🤖⚽ Halftime Realistic Correct Score Outcome Predictor")
 st.markdown("""
 Predict **halftime outcomes** based on:
 - Expected Goals (XG)
