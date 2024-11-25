@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import poisson
 
 # Title and Introduction
-st.title("🤖 Advanced Sports Betting Predictor")
+st.title("🤖💯 🤖Advanced Sports Betting Predictor")
 st.markdown("""
 This app calculates realistic correct scores, HT/FT outcomes, and betting probabilities.
 It also provides AI recommendations for the most profitable bets with detailed calculations for maximum margin and ROI.
