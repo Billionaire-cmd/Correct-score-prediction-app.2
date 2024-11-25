@@ -42,37 +42,39 @@ score_2_1_odds = st.number_input("Odds for 2-1 (HT)", min_value=0.0, value=26.00
 score_2_2_odds = st.number_input("Odds for 2-2 (HT)", min_value=0.0, value=185.00)
 score_1_2_odds = st.number_input("Odds for 1-2 (HT)", min_value=0.0, value=74.00)
 
-# Logic to calculate Halftime Correct Score Recommendation
-# Here we assume the model recommends 1-0 as the most likely correct score
-recommended_score = "1-0"
-recommended_odds = score_1_0_odds
+# Add a button to submit the prediction
+if st.button('Submit Prediction'):
+    # Logic to calculate Halftime Correct Score Recommendation
+    # Here we assume the model recommends 1-0 as the most likely correct score
+    recommended_score = "1-0"
+    recommended_odds = score_1_0_odds
 
-# Display the recommended score and its odds
-st.subheader(f"Recommended Halftime Score: {recommended_score}")
-st.write(f"The predicted best halftime score is **{recommended_score}** with odds of **{recommended_odds}**.")
+    # Display the recommended score and its odds
+    st.subheader(f"Recommended Halftime Score: {recommended_score}")
+    st.write(f"The predicted best halftime score is **{recommended_score}** with odds of **{recommended_odds}**.")
 
-# Additional calculations or recommendations can go here
-st.subheader("Additional Information & Insights")
+    # Additional calculations or recommendations can go here
+    st.subheader("Additional Information & Insights")
 
-# Example calculation: Estimated probability of 1-0 based on odds
-odds_to_probability = lambda odds: 1 / odds
-prob_1_0 = odds_to_probability(score_1_0_odds)
+    # Example calculation: Estimated probability of 1-0 based on odds
+    odds_to_probability = lambda odds: 1 / odds
+    prob_1_0 = odds_to_probability(score_1_0_odds)
 
-st.write(f"Estimated Probability of 1-0 (HT) = {prob_1_0:.2%}")
+    st.write(f"Estimated Probability of 1-0 (HT) = {prob_1_0:.2%}")
 
-# Display some additional metrics or insights
-# Example: Home Team Strength + Away Team Defense interaction
-home_defense_efficiency = home_attack_strength * home_defense_strength
-away_attack_efficiency = away_attack_strength * away_defense_strength
+    # Display some additional metrics or insights
+    # Example: Home Team Strength + Away Team Defense interaction
+    home_defense_efficiency = home_attack_strength * home_defense_strength
+    away_attack_efficiency = away_attack_strength * away_defense_strength
 
-st.write(f"Home Team Defensive Efficiency (HT): {home_defense_efficiency:.2f}")
-st.write(f"Away Team Offensive Efficiency (HT): {away_attack_efficiency:.2f}")
+    st.write(f"Home Team Defensive Efficiency (HT): {home_defense_efficiency:.2f}")
+    st.write(f"Away Team Offensive Efficiency (HT): {away_attack_efficiency:.2f}")
 
-# Calculate expected halftime score probabilities
-expected_home_score = home_goals_ht * home_attack_strength / away_defense_strength
-expected_away_score = away_goals_ht * away_attack_strength / home_defense_strength
+    # Calculate expected halftime score probabilities
+    expected_home_score = home_goals_ht * home_attack_strength / away_defense_strength
+    expected_away_score = away_goals_ht * away_attack_strength / home_defense_strength
 
-st.write(f"Expected Home Score (HT): {expected_home_score:.2f}")
-st.write(f"Expected Away Score (HT): {expected_away_score:.2f}")
+    st.write(f"Expected Home Score (HT): {expected_home_score:.2f}")
+    st.write(f"Expected Away Score (HT): {expected_away_score:.2f}")
 
-# You can add more detailed calculations based on the available inputs and your prediction logic.
+    # You can add more detailed calculations based on the available inputs and your prediction logic.
