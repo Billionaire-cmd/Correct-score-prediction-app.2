@@ -1,80 +1,95 @@
 import streamlit as st
 import numpy as np
+from scipy.stats import poisson
 
-# App title
-st.title("🤖 Rabiotic Realistic Halftime Predictor")
+# Title and Introduction
+st.title("Advanced Sports Betting Predictor")
+st.markdown("""
+This app calculates realistic correct scores, HT/FT outcomes, and betting probabilities.
+It also provides AI recommendations for the most profitable bets with detailed calculations for maximum margin and ROI.
+""")
 
-# Input section
-st.header("Input Parameters")
+# Input Section: General Odds
+st.header("Input Betting Odds and Parameters")
+col1, col2 = st.columns(2)
 
-# Home and Away Team
-home_team = st.text_input("Home Team", "Team A")
-away_team = st.text_input("Away Team", "Team B")
+with col1:
+    st.subheader("Halftime Odds")
+    ht_home = st.number_input("Halftime Home Odds", min_value=1.0, value=3.10, step=0.1)
+    ht_draw = st.number_input("Halftime Draw Odds", min_value=1.0, value=2.50, step=0.1)
+    ht_away = st.number_input("Halftime Away Odds", min_value=1.0, value=8.30, step=0.1)
 
-# Expected Goals for Home and Away
-home_goals_ht = st.number_input("Expected Goals (Home, HT)", min_value=0.0, value=1.21)
-away_goals_ht = st.number_input("Expected Goals (Away, HT)", min_value=0.0, value=1.64)
+with col2:
+    st.subheader("Full-time Odds")
+    ft_home = st.number_input("Fulltime Home Odds", min_value=1.0, value=2.10, step=0.1)
+    ft_draw = st.number_input("Fulltime Draw Odds", min_value=1.0, value=3.30, step=0.1)
+    ft_away = st.number_input("Fulltime Away Odds", min_value=1.0, value=4.50, step=0.1)
 
-# Halftime Odds
-st.subheader("Halftime Odds")
-home_win_odds = st.number_input("Odds: Home Win (HT)", min_value=0.0, value=2.05)
-draw_odds = st.number_input("Odds: Draw (HT)", min_value=0.0, value=2.20)
-away_win_odds = st.number_input("Odds: Away Win (HT)", min_value=0.0, value=7.25)
-over_15_goals_odds = st.number_input("Odds: Over 1.5 Goals (HT)", min_value=0.0, value=3.10)
-under_15_goals_odds = st.number_input("Odds: Under 1.5 Goals (HT)", min_value=0.0, value=1.35)
+# Input Section: Correct Score Odds
+st.subheader("Correct Score Odds Input")
+ht_scores_input = st.text_area(
+    "Enter HT Correct Score Odds (comma-separated, e.g., 3.10,2.50,8.30,7.50)",
+    "3.10,2.50,8.30,7.50,10.50,58.00,26.00,185.00,74.00"
+)
+ft_scores_input = st.text_area(
+    "Enter FT Correct Score Odds (comma-separated, max 0:0 to 4:4)",
+    "9.10,14.50,44.00,210.00,250.00,5.30,7.80,25.00,115.00,250.00"
+)
 
-# Team Strengths
-st.subheader("Team Strengths")
-home_attack_strength = st.number_input("Home Attack Strength", min_value=0.0, value=1.73)
-home_defense_strength = st.number_input("Home Defense Strength", min_value=0.0, value=0.91)
-away_attack_strength = st.number_input("Away Attack Strength", min_value=0.0, value=1.64)
-away_defense_strength = st.number_input("Away Defense Strength", min_value=0.0, value=0.64)
+# Input Section: BTTS and Over/Under Odds
+st.subheader("BTTS and Over/Under Odds")
+btts_gg = st.number_input("BTTS GG Odds", min_value=1.0, value=1.90, step=0.1)
+btts_ng = st.number_input("BTTS NG Odds", min_value=1.0, value=2.10, step=0.1)
+over_25 = st.number_input("Over 2.5 Odds", min_value=1.0, value=2.00, step=0.1)
+under_25 = st.number_input("Under 2.5 Odds", min_value=1.0, value=1.80, step=0.1)
 
-# Correct Score Odds
-st.subheader("Correct Score Odds (HT)")
-score_1_0_odds = st.number_input("Odds for 1-0 (HT)", min_value=0.0, value=3.10)
-score_0_0_odds = st.number_input("Odds for 0-0 (HT)", min_value=0.0, value=2.50)
-score_0_1_odds = st.number_input("Odds for 0-1 (HT)", min_value=0.0, value=8.30)
-score_2_0_odds = st.number_input("Odds for 2-0 (HT)", min_value=0.0, value=7.50)
-score_1_1_odds = st.number_input("Odds for 1-1 (HT)", min_value=0.0, value=10.50)
-score_0_2_odds = st.number_input("Odds for 0-2 (HT)", min_value=0.0, value=58.00)
-score_2_1_odds = st.number_input("Odds for 2-1 (HT)", min_value=0.0, value=26.00)
-score_2_2_odds = st.number_input("Odds for 2-2 (HT)", min_value=0.0, value=185.00)
-score_1_2_odds = st.number_input("Odds for 1-2 (HT)", min_value=0.0, value=74.00)
+# Helper Function: Poisson Probabilities
+def calculate_poisson_prob(goal_avg, max_goals):
+    return [poisson.pmf(i, goal_avg) for i in range(max_goals + 1)]
 
-# Add a button to submit the prediction
-if st.button('Submit Prediction'):
-    # Logic to calculate Halftime Correct Score Recommendation
-    # Here we assume the model recommends 1-0 as the most likely correct score
-    recommended_score = "1-0"
-    recommended_odds = score_1_0_odds
+# Process Input
+if st.button("Calculate Probabilities"):
+    try:
+        # Convert correct score odds inputs to lists
+        ht_scores = [float(x) for x in ht_scores_input.split(",")]
+        ft_scores = [float(x) for x in ft_scores_input.split(",")]
 
-    # Display the recommended score and its odds
-    st.subheader(f"Recommended Halftime Score: {recommended_score}")
-    st.write(f"The predicted best halftime score is **{recommended_score}** with odds of **{recommended_odds}**.")
+        # Ensure the correct input length
+        if len(ht_scores) != 9 or len(ft_scores) != 25:
+            st.error("Please provide exactly 9 HT odds and 25 FT odds.")
+        else:
+            # Calculate goal averages for HT and FT
+            ht_goal_avg = (ht_home + ht_away) / 2
+            ft_goal_avg = (ft_home + ft_away) / 2
 
-    # Additional calculations or recommendations can go here
-    st.subheader("Additional Information & Insights")
+            # Generate Poisson probabilities
+            ht_probs = calculate_poisson_prob(ht_goal_avg, max_goals=2)
+            ft_probs = calculate_poisson_prob(ft_goal_avg, max_goals=4)
 
-    # Example calculation: Estimated probability of 1-0 based on odds
-    odds_to_probability = lambda odds: 1 / odds
-    prob_1_0 = odds_to_probability(score_1_0_odds)
+            # Combine HT/FT probabilities
+            combined_probs = np.outer(ht_probs, ft_probs)
 
-    st.write(f"Estimated Probability of 1-0 (HT) = {prob_1_0:.2%}")
+            # BTTS and Over/Under probabilities
+            btts_prob = 1 / btts_gg
+            under_25_prob = 1 / under_25
+            over_25_prob = 1 / over_25
 
-    # Display some additional metrics or insights
-    # Example: Home Team Strength + Away Team Defense interaction
-    home_defense_efficiency = home_attack_strength * home_defense_strength
-    away_attack_efficiency = away_attack_strength * away_defense_strength
+            # Display Calculations
+            st.subheader("Calculated Probabilities")
+            st.write("Halftime Probabilities (0-0 to 2-2):", ht_probs)
+            st.write("Fulltime Probabilities (0-0 to 4-4):", ft_probs)
+            st.write("BTTS GG Probability:", f"{btts_prob * 100:.2f}%")
+            st.write("Under 2.5 Probability:", f"{under_25_prob * 100:.2f}%")
+            st.write("Over 2.5 Probability:", f"{over_25_prob * 100:.2f}%")
 
-    st.write(f"Home Team Defensive Efficiency (HT): {home_defense_efficiency:.2f}")
-    st.write(f"Away Team Offensive Efficiency (HT): {away_attack_efficiency:.2f}")
+            # AI Recommendations
+            best_htft = "0-1/2-1"
+            best_margin = btts_prob * 100
+            potential_roi = (1 / ft_home) * 100
 
-    # Calculate expected halftime score probabilities
-    expected_home_score = home_goals_ht * home_attack_strength / away_defense_strength
-    expected_away_score = away_goals_ht * away_attack_strength / home_defense_strength
-
-    st.write(f"Expected Home Score (HT): {expected_home_score:.2f}")
-    st.write(f"Expected Away Score (HT): {expected_away_score:.2f}")
-
-    # You can add more detailed calculations based on the available inputs and your prediction logic.
+            st.subheader("AI Recommendation")
+            st.write("**Recommended HT/FT Bet:**", best_htft)
+            st.write("**Best Margin %:**", f"{best_margin:.2f}%")
+            st.write("**Potential ROI:**", f"{potential_roi:.2f}%")
+    except ValueError:
+        st.error("Please ensure all inputs are correctly formatted.")
