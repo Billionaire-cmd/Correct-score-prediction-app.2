@@ -62,18 +62,20 @@ for i in range(max_goals + 1):
     for j in range(max_goals + 1):
         ht_scores.append({
             "Score (A:B)": f"{i}:{j}",
-            "Probability": f"{ht_adjusted_matrix[i, j] * 100:.2f}%"
+            "Probability": ht_adjusted_matrix[i, j]
         })
 ht_df = pd.DataFrame(ht_scores).sort_values(by="Probability", ascending=False)
+ht_df["Probability"] = ht_df["Probability"].apply(lambda x: f"{x * 100:.2f}%")
 
 ft_scores = []
 for i in range(max_goals + 1):
     for j in range(max_goals + 1):
         ft_scores.append({
             "Score (A:B)": f"{i}:{j}",
-            "Probability": f"{ft_adjusted_matrix[i, j] * 100:.2f}%"
+            "Probability": ft_adjusted_matrix[i, j]
         })
 ft_df = pd.DataFrame(ft_scores).sort_values(by="Probability", ascending=False)
+ft_df["Probability"] = ft_df["Probability"].apply(lambda x: f"{x * 100:.2f}%")
 
 # Display Results
 st.header("Prediction Results")
@@ -83,10 +85,17 @@ st.dataframe(ht_df)
 st.subheader("Full-Time Score Probabilities")
 st.dataframe(ft_df)
 
-# Focused Probabilities
-ht_focused = ht_df[ht_df["Score (A:B)"] == "0:0"]
-ft_focused = ft_df[ft_df["Score (A:B)"] == "1:1"]
+# Final Recommendation
+recommended_ht_score = ht_df.iloc[0]["Score (A:B)"]
+recommended_ht_prob = ht_df.iloc[0]["Probability"]
+recommended_ft_score = ft_df.iloc[0]["Score (A:B)"]
+recommended_ft_prob = ft_df.iloc[0]["Probability"]
 
-st.subheader("Focused Predictions")
-st.write(f"### Halftime Focused Score (0:0):\n{ht_focused.iloc[0]['Probability']} probability")
-st.write(f"### Full-Time Focused Score (1:1):\n{ft_focused.iloc[0]['Probability']} probability")
+st.subheader("Final Recommendation")
+st.write(f"### Recommended Halftime Score: {recommended_ht_score} (Probability: {recommended_ht_prob})")
+st.write(f"### Recommended Full-Time Score: {recommended_ft_score} (Probability: {recommended_ft_prob})")
+
+# Provide Copy Option
+st.write("**Copy Recommendation:**")
+st.code(f"Halftime: {recommended_ht_score} (Probability: {recommended_ht_prob})\n"
+        f"Full-Time: {recommended_ft_score} (Probability: {recommended_ft_prob})")
