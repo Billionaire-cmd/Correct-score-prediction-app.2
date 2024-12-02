@@ -40,7 +40,7 @@ with st.sidebar:
         st.success("Prediction submitted! Results will be displayed below.")
 
 # Generate probabilities for halftime and full-time scores
-max_goals = 3  # Maximum goals to consider for calculation
+max_goals = 4  # Maximum goals to consider for calculation
 ht_prob_matrix = poisson_prob(lambda_a_ht, lambda_b_ht, max_goals)
 ft_prob_matrix = poisson_prob(lambda_a_ft, lambda_b_ft, max_goals)
 
