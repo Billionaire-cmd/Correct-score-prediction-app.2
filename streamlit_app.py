@@ -6,7 +6,7 @@ from scipy.stats import poisson
 # Function to calculate probabilities for a Poisson distribution
 def poisson_prob(lambda1, lambda2, max_goals=5):
     prob_matrix = np.zeros((max_goals + 1, max_goals + 1))
-    for i in range(max_goals + 1):
+    for i in range(max_goals + 2):
         for j in range(max_goals + 1):
             prob_matrix[i, j] = poisson.pmf(i, lambda1) * poisson.pmf(j, lambda2)
     return prob_matrix
