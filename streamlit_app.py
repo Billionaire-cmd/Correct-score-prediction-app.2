@@ -56,7 +56,7 @@ ht_adjusted_matrix /= ht_adjusted_matrix.sum()  # Normalize probabilities
 
 # Full-time adjustments
 ft_adjusted_matrix = ft_prob_matrix.copy()
-for i in range(max_goals + 3):
+for i in range(max_goals + 2):
     for j in range(max_goals + 1):
         if i + j > 2:  # Scores greater than 2.5 goals
             ft_adjusted_matrix[i, j] *= max(over_weight_a, over_weight_b)
