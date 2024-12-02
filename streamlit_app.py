@@ -12,7 +12,7 @@ def poisson_prob(lambda1, lambda2, max_goals=5):
     return prob_matrix
 
 # Streamlit App Title
-st.title("🤖🤖🤖⚽⚽⚽💯💯💯 Rabiotic Football Correct Score Prediction (Halftime & Full-Time)")
+st.title("🤖🤖🤖⚽⚽⚽🤖💯💯💯 Rabiotic Football Correct Score Prediction (Halftime & Full-Time)")
 
 # Sidebar Inputs
 st.sidebar.header("Team A Statistics")
