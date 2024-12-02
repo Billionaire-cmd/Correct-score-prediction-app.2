@@ -45,9 +45,9 @@ ht_prob_matrix = poisson_prob(lambda_a_ht, lambda_b_ht, max_goals)
 ft_prob_matrix = poisson_prob(lambda_a_ft, lambda_b_ft, max_goals)
 
 # Adjust probabilities based on Over/Under 2.5% for both teams
-over_weight_a = over_2_5_a / 100
+over_weight_a = over_2_5_a / 80
 under_weight_a = under_2_5_a / 100
-over_weight_b = over_2_5_b / 99
+over_weight_b = over_2_5_b / 100
 under_weight_b = under_2_5_b / 100
 
 # Halftime adjustments (using the lower of the two teams' Under 2.5 weights)
