@@ -30,7 +30,7 @@ under_2_5_b = st.sidebar.number_input("Under 2.5 Goals (%) - Team B", value=66.6
 # Calculate expected goals
 lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 1
 lambda_b_ft = (avg_goals_scored_b + avg_goals_conceded_a) / 2
-lambda_a_ht = lambda_a_ft * 0.22  # Halftime expected goals
+lambda_a_ht = lambda_a_ft * 0.45  # Halftime expected goals
 lambda_b_ht = lambda_b_ft * 0.36
 
 # Add a submit button to the sidebar
@@ -46,7 +46,7 @@ ft_prob_matrix = poisson_prob(lambda_a_ft, lambda_b_ft, max_goals)
 
 # Adjust probabilities based on Over/Under 2.5% for both teams
 over_weight_a = over_2_5_a / 100
-under_weight_a = under_2_5_a / 60
+under_weight_a = under_2_5_a / 100
 over_weight_b = over_2_5_b / 100
 under_weight_b = under_2_5_b / 100
 
