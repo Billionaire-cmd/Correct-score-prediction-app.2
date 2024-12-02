@@ -77,7 +77,7 @@ ht_df["Probability"] = ht_df["Probability"].apply(lambda x: f"{x * 100:.2f}%")
 
 ft_scores = []
 for i in range(max_goals - 2):
-    for j in range(max_goals + 2):
+    for j in range(max_goals + 1):
         ft_scores.append({
             "Score (A:B)": f"{i}:{j}",
             "Probability": ft_adjusted_matrix[i, j]
