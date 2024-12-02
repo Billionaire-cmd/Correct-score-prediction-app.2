@@ -31,7 +31,7 @@ under_2_5_b = st.sidebar.number_input("Under 2.5 Goals (%) - Team B", value=66.6
 lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 1
 lambda_b_ft = (avg_goals_scored_b + avg_goals_conceded_a) / 2
 lambda_a_ht = lambda_a_ft * 0.45  # Halftime expected goals
-lambda_b_ht = lambda_b_ft * 0.36
+lambda_b_ht = lambda_b_ft * 0.45
 
 # Add a submit button to the sidebar
 with st.sidebar:
