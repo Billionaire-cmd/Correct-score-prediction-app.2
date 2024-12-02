@@ -33,6 +33,12 @@ lambda_b_ft = (avg_goals_scored_b + avg_goals_conceded_a) / 2
 lambda_a_ht = lambda_a_ft * 0.45  # Halftime expected goals
 lambda_b_ht = lambda_b_ft * 0.45
 
+# Add a submit button to the sidebar
+with st.sidebar:
+    st.markdown("### Submit Prediction")
+    if st.button("Submit Prediction"):
+        st.success("Prediction submitted! Results will be displayed below.")
+
 # Generate probabilities for halftime and full-time scores
 max_goals = 3  # Maximum goals to consider for calculation
 ht_prob_matrix = poisson_prob(lambda_a_ht, lambda_b_ht, max_goals)
