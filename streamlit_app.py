@@ -12,7 +12,7 @@ def poisson_prob(lambda1, lambda2, max_goals=5):
     return prob_matrix
 
 # Streamlit App Title
-st.title("🤖🤖🤖💯💯💯Football Score Prediction (Halftime & Full-Time)")
+st.title("🤖🤖🤖⚽⚽⚽💯💯💯Football Score Prediction (Halftime & Full-Time)")
 
 # Sidebar Inputs
 st.sidebar.header("Team A Statistics")
@@ -28,7 +28,7 @@ over_2_5_b = st.sidebar.number_input("Over 2.5 Goals (%) - Team B", value=33.33,
 under_2_5_b = st.sidebar.number_input("Under 2.5 Goals (%) - Team B", value=66.67, step=0.01, min_value=0.0, max_value=100.0)
 
 # Calculate expected goals
-lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 2
+lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 1
 lambda_b_ft = (avg_goals_scored_b + avg_goals_conceded_a) / 2
 lambda_a_ht = lambda_a_ft * 0.45  # Halftime expected goals
 lambda_b_ht = lambda_b_ft * 0.45
