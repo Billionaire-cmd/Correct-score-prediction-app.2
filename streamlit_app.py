@@ -67,7 +67,7 @@ ft_adjusted_matrix /= ft_adjusted_matrix.sum()  # Normalize probabilities
 # Create DataFrames for halftime and full-time probabilities
 ht_scores = []
 for i in range(max_goals - 2):
-    for j in range(max_goals + 1):
+    for j in range(max_goals - 1):
         ht_scores.append({
             "Score (A:B)": f"{i}:{j}",
             "Probability": ht_adjusted_matrix[i, j]
