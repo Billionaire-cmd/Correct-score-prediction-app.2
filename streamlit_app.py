@@ -6,7 +6,7 @@ from scipy.stats import poisson
 # Function to calculate probabilities for a Poisson distribution
 def poisson_prob(lambda1, lambda2, max_goals=5):
     prob_matrix = np.zeros((max_goals + 1, max_goals + 1))
-    for i in range(max_goals + 2):
+    for i in range(max_goals + 1):
         for j in range(max_goals + 1):
             prob_matrix[i, j] = poisson.pmf(i, lambda1) * poisson.pmf(j, lambda2)
     return prob_matrix
@@ -28,7 +28,7 @@ over_2_5_b = st.sidebar.number_input("Over 2.5 Goals (%) - Team B", value=33.33,
 under_2_5_b = st.sidebar.number_input("Under 2.5 Goals (%) - Team B", value=66.67, step=0.01, min_value=0.0, max_value=100.0)
 
 # Calculate expected goals
-lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 1
+lambda_a_ft = (avg_goals_scored_a + avg_goals_conceded_b) / 2
 lambda_b_ft = (avg_goals_scored_b + avg_goals_conceded_a) / 2
 lambda_a_ht = lambda_a_ft * 0.22  # Halftime expected goals
 lambda_b_ht = lambda_b_ft * 0.36
