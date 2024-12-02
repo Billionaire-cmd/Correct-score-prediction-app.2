@@ -47,7 +47,7 @@ ft_prob_matrix = poisson_prob(lambda_a_ft, lambda_b_ft, max_goals)
 # Adjust probabilities based on Over/Under 2.5% for both teams
 over_weight_a = over_2_5_a / 100
 under_weight_a = under_2_5_a / 100
-over_weight_b = over_2_5_b / 100
+over_weight_b = over_2_5_b / 99
 under_weight_b = under_2_5_b / 100
 
 # Halftime adjustments (using the lower of the two teams' Under 2.5 weights)
@@ -56,7 +56,7 @@ ht_adjusted_matrix /= ht_adjusted_matrix.sum()  # Normalize probabilities
 
 # Full-time adjustments
 ft_adjusted_matrix = ft_prob_matrix.copy()
-for i in range(max_goals + 2):
+for i in range(max_goals + 1):
     for j in range(max_goals + 1):
         if i + j > 0:  # Scores greater than 2.5 goals
             ft_adjusted_matrix[i, j] *= max(over_weight_a, over_weight_b)
