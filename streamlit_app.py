@@ -76,7 +76,7 @@ ht_df = pd.DataFrame(ht_scores).sort_values(by="Probability", ascending=False)
 ht_df["Probability"] = ht_df["Probability"].apply(lambda x: f"{x * 100:.2f}%")
 
 ft_scores = []
-for i in range(max_goals - 1):
+for i in range(max_goals - 2):
     for j in range(max_goals - 1):
         ft_scores.append({
             "Score (A:B)": f"{i}:{j}",
