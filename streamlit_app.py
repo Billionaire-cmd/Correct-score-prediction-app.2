@@ -4,9 +4,16 @@ import requests
 # Backend API URL
 api_url = "http://localhost:5000/place_trade"  # Update with your hosted backend URL
 
-st.title("🤖🤖🤖📉📈Rabiotic Trading Strategy Bot")
+st.title("Trading Bot with Advanced Indicators")
 
-# Input fields
+# MT5/MT4 Account Credentials
+st.subheader("MT5/MT4 Account Details")
+mt5_login = st.text_input("MT5/MT4 Login")
+mt5_password = st.text_input("MT5/MT4 Password", type="password")
+mt5_server = st.text_input("MT5/MT4 Server")
+
+# Input fields for strategy
+st.subheader("Trading Parameters")
 license_key = st.text_input("License Key")
 symbol = st.selectbox("Market Symbol", [
     # Synthetic Indices
@@ -27,7 +34,11 @@ stop_loss = st.number_input("Stop Loss", min_value=0.0)
 
 # Button to execute the strategy
 if st.button("Run Strategy"):
+    # Combine all inputs into payload
     payload = {
+        "mt5_login": mt5_login,
+        "mt5_password": mt5_password,
+        "mt5_server": mt5_server,
         "license_key": license_key,
         "symbol": symbol,
         "timeframe": timeframe,
