@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # App Title
-st.title("Rabiotic Trading Strategy Bot")
+st.title("📈📉Rabiotic Trading Strategy Bot")
 
 # Input Fields
 license_key = st.text_input("License Key", "")
