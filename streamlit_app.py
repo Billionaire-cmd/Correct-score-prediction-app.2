@@ -4,7 +4,7 @@ import requests
 # Backend API URL
 api_url = "http://localhost:5000/place_trade"  # Update with your hosted backend URL
 
-st.title("Rabiotic Trading Strategy Bot")
+st.title("🤖🤖🤖📉📈Rabiotic Trading Strategy Bot")
 
 # Input fields
 license_key = st.text_input("License Key")
