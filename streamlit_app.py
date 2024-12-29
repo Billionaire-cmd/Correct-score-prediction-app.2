@@ -4,7 +4,7 @@ import requests
 # Backend API URL
 api_url = "http://localhost:5000/place_trade"  # Update with your hosted backend URL
 
-st.title("Trading Bot with Advanced Indicators")
+st.title("📈📉🤖🤖🤖💯Rabiotic Trading Strategy Bot")
 
 # MT5/MT4 Account Credentials
 st.subheader("MT5/MT4 Account Details")
